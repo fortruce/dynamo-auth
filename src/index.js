@@ -7,4 +7,5 @@ server.get('/hello/:name', (req, res) => {
 
 server.listen(8080, function() {
 	console.log(`${server.name} listening at ${server.url}`);
+	console.log(process.env.EXAMPLE_ENV_VAR);
 });
