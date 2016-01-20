@@ -1,4 +1,7 @@
-require("dotenv").load();
+if (process.env.NODE_ENV === "development") {
+	require("dotenv").load();
+}
+
 import restify from "restify";
 
 const server = restify.createServer();
