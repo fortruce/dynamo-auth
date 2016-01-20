@@ -1,0 +1,29 @@
+{
+  "name": "dynamo-auth",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "node_modules/.bin/babel -d dist/ src/",
+    "prestart": "npm run build",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fortruce/dynamo-auth.git"
+  },
+  "author": "fortruce",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fortruce/dynamo-auth/issues"
+  },
+  "homepage": "https://github.com/fortruce/dynamo-auth#readme",
+  "dependencies": {
+    "babel": "^6.3.26",
+    "babel-cli": "^6.4.5",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-stage-2": "^6.3.13",
+    "restify": "^4.0.3"
+  }
+}
