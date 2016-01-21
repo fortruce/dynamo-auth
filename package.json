@@ -4,10 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "node_modules/.bin/babel -d dist/ src/",
-    "prestart": "npm run build",
-    "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_ENV=${NODE_ENV:-development} node src/index.js",
+    "test": "NODE_ENV=${NODE_ENV:-test} node test/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,11 +18,10 @@
   },
   "homepage": "https://github.com/fortruce/dynamo-auth#readme",
   "dependencies": {
-    "babel": "^6.3.26",
-    "babel-cli": "^6.4.5",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-stage-2": "^6.3.13",
     "dotenv": "^1.2.0",
     "restify": "^4.0.3"
+  },
+  "devDependencies": {
+    "tape": "4.4.0"
   }
 }

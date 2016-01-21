@@ -1,10 +1,11 @@
 if (process.env.NODE_ENV === "development") {
-	require("dotenv").load();
+	const path = require("path");
+	require("dotenv").load({ path: path.join(__dirname, "../.env") });
 }
 
-import restify from "restify";
-
+const restify = require("restify");
 const server = restify.createServer();
+
 server.get('/hello/:name', (req, res) => {
 	res.send(`${process.env.EXAMPLE_ENV_VAR} ${req.params.name}`);
 });
