@@ -3,10 +3,9 @@ if (process.env.NODE_ENV === "development") {
 	require("dotenv").load({ path: path.join(__dirname, "../.env") });
 }
 
-const restify = require("restify");
+const server = require("./server");
 const logger = require("./logger");
-
-const server = restify.createServer();
+const db = require("./db");
 
 server.listen(process.env.PORT, function() {
 	logger.info(`${server.name} listening at ${server.url}`);

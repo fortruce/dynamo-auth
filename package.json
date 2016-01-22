@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "NODE_ENV=${NODE_ENV:-development} node src/index.js",
-    "test": "NODE_ENV=${NODE_ENV:-test} node test/index.js"
+    "test": "NODE_ENV=${NODE_ENV:-test} node test/index.js | faucet"
   },
   "repository": {
     "type": "git",
@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/fortruce/dynamo-auth#readme",
   "dependencies": {
+    "aws-dynamodb": "0.1.49",
     "bunyan": "1.5.1",
     "dotenv": "^1.2.0",
     "restify": "^4.0.3"
   },
   "devDependencies": {
+    "faucet": "0.0.1",
     "tape": "4.4.0"
   }
 }
