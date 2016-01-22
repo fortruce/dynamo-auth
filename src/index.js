@@ -4,11 +4,10 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const restify = require("restify");
-const server = restify.createServer();
+const bunyan = require("bunyan");
 
-server.get('/hello/:name', (req, res) => {
-	res.send(`${process.env.EXAMPLE_ENV_VAR} ${req.params.name}`);
-});
+const server = restify.createServer();
+const logger = bunyan.createLogger({ name: "dynamo-auth" })
 
 server.listen(process.env.PORT, function() {
 	console.log(`${server.name} listening at ${server.url}`);
