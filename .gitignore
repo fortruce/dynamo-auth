@@ -2,6 +2,8 @@ dist/
 node_modules/
 .env
 
+*.db
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
