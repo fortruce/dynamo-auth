@@ -1,7 +1,9 @@
 "use strict";
 
-const path = require("path");
-require("dotenv").load({ path: path.join(__dirname, "../.env") });
+if (!process.env.CIRCLECI) {
+  const path = require("path");
+  require("dotenv").load({ path: path.join(__dirname, "../.env") });
+}
 
 const test = require("tape");
 const dynamo = require("../scripts/dynamo");
@@ -13,7 +15,7 @@ test("tests should work", assert => {
 });
 
 test("should start dynamo", assert => {
-  dbServer = dynamo(["--inMemory", "--sharedDb"]);
+  dbServer = dynamo(["--inMemory", "--sharedDb"], { stdio: "inherit" });
   assert.ok(dbServer.pid);
   assert.end();
 });
