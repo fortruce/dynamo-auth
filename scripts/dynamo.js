@@ -14,8 +14,17 @@ module.exports = (args, opts) => {
       "--port",
       `${process.env.DYNAMODB_PORT}`
     ].concat(args),
-    Object.assign({}, { env: process.env }, opts)
+    Object.assign(
+      {},
+      {
+        env: process.env,
+        detached: true,
+        stdio: "ignore"
+      },
+      opts
+    )
   );
+  child.unref();
   process.on("exit", () => child.kill());
   return child;
 }
