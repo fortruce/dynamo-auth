@@ -1,36 +1,13 @@
 "use strict";
 
-if (!process.env.CIRCLECI) {
-  const path = require("path");
-  require("dotenv").load({ path: path.join(__dirname, "../.env") });
-}
-
 const test = require("tape");
-const dynamo = require("../scripts/dynamo");
-let dbServer = null;
+const db = require("./db");
 
-test("tests should work", assert => {
-  assert.equal(5, 5);
-  assert.end();
-});
-
-test("should start dynamo", assert => {
-  dbServer = dynamo(["--inMemory", "--sharedDb"], { stdio: "inherit" });
-  assert.ok(dbServer.pid);
-  assert.end();
-});
-
-test("should connect to local dynamodb", assert => {
-  assert.plan(3);
-  const db = require("../src/db");
-  assert.equal(db.client.endpoint.hostname, "localhost");
+test("should connect to local dynamodb", t => {
+  t.equal(db.client.endpoint.hostname, "localhost");
   db.client.listTables((err, tables) => {
-    assert.error(err);
-    assert.equal(tables.TableNames.length, [].length);
+    t.error(err);
+    t.equal(tables.TableNames.length, [].length);
+    t.end();
   });
-});
-
-test("should stop dynamo", assert => {
-  dbServer.on("exit", () => assert.end());
-  dbServer.kill();
 });

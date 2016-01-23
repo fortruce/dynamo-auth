@@ -5,7 +5,7 @@ const child_process = require("child_process");
 module.exports = (args, opts) => {
   args = args || [];
   opts = opts || {};
-  return child_process.spawn(
+  const child = child_process.spawn(
     "java",
     [
       `-Djava.library.path=${process.env.DYNAMODB_PATH}/DynamoDBLocal_lib`,
@@ -16,4 +16,6 @@ module.exports = (args, opts) => {
     ].concat(args),
     Object.assign({}, { env: process.env }, opts)
   );
+  process.on("exit", () => child.kill());
+  return child;
 }
