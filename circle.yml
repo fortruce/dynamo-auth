@@ -2,13 +2,13 @@ machine:
   node:
     version: 4.2.3
   environment:
-    - PORT: 8080
-    - DYNAMODB_ENDPOINT: "http://localhost:8008"
-    - DYNAMODB_PORT: 8008
-    - DYNAMODB_PATH: "~/dynamo"
-    - AWS_ACCESS_KEY_ID: "1234"
-    - AWS_SECRET_ACCESS_KEY: "5678"
-    - AWS_REGION: "fake-region"
+    PORT: 8080
+    DYNAMODB_ENDPOINT: "http://localhost:8008"
+    DYNAMODB_PORT: 8008
+    DYNAMODB_PATH: "~/dynamo"
+    AWS_ACCESS_KEY_ID: "1234"
+    AWS_SECRET_ACCESS_KEY: "5678"
+    AWS_REGION: "fake-region"
   post:
     - "mkdir ~/dynamo"
     - "wget -O ~/dynamo http://dynamodb-local.s3-website-us-west-2.amazonaws.com/dynamodb_local_latest.tar.gz"
