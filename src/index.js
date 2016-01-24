@@ -10,7 +10,6 @@ const db = require("./db");
 if (process.env.NODE_ENV === "development") {
 	logger.info("Spawning DynamoDB Local");
 	const dynamo = require("../scripts/dynamo")(["--sharedDb"]);
-	process.on("exit", () => dynamo.kill());
 }
 
 server.listen(process.env.PORT, function() {
