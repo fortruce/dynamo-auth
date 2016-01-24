@@ -15,7 +15,7 @@ function required(accessor, properties) {
   };
 }
 
-function signupHandler(req, res, next) {
+function signupHandler(req, res) {
   res.send(201);
 }
 
@@ -23,5 +23,5 @@ module.exports = server => {
   server.post("/signup", [
     required("body", ["email", "password"]),
     signupHandler
-  ])
+  ]);
 };

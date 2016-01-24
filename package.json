@@ -5,8 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "NODE_ENV=${NODE_ENV:-development} node src/index.js | bunyan",
-    "test": "NODE_ENV=${NODE_ENV:-test} node test/index.js",
-    "test-dev": "watchman-make --make 'npm run' -p '**/*.js' -t test"
+    "test": "NODE_ENV=${NODE_ENV:-test} node test/index.js | faucet",
+    "lint": "eslint src/ test/ scripts/",
+    "lint:test": "npm run lint; npm run test",
+    "test-dev": "watchman-make --make 'npm run' -p '**/*.js' -t lint:test"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,7 @@
     "restify": "^4.0.3"
   },
   "devDependencies": {
+    "eslint": "1.10.3",
     "faucet": "0.0.1",
     "supertest": "1.1.0",
     "tape": "4.4.0"

@@ -27,4 +27,4 @@ module.exports = (args, opts) => {
   child.unref();
   process.on("exit", () => child.kill());
   return child;
-}
+};

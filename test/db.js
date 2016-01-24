@@ -3,5 +3,5 @@ if (!process.env.CIRCLECI) {
   require("dotenv").load({ path: path.join(__dirname, "../.env") });
 }
 
-const dynamo = require("../scripts/dynamo")(["--inMemory", "--sharedDb"]);
+require("../scripts/dynamo")(["--inMemory", "--sharedDb"]);
 module.exports = require("../src/db");
