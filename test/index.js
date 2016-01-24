@@ -1,6 +1,7 @@
 "use strict";
 
 const test = require("tape");
+const request = require("supertest")(require("../src/server"));
 const db = require("./db");
 
 test("should connect to local dynamodb", t => {
@@ -23,6 +24,23 @@ test("schemas", t => {
       t.equal(attributes.length, 2);
       t.ok(attributes.indexOf("id") !== -1);
       t.ok(attributes.indexOf("created_at") !== -1);
+      t.end();
+    });
+  });
+});
+
+test("routes", t => {
+  t.test("/signup", t => {
+    t.test("should require email and password", t => {
+      request.post("/signup")
+        .expect(400)
+        .end(err => t.error(err, "bad request"));
+
+      request.post("/signup")
+        .send({ email: "", password: "" })
+        .expect(201)
+        .end(err => t.error(err, "good request"));
+
       t.end();
     });
   });
