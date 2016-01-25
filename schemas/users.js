@@ -12,20 +12,33 @@ module.exports = {
       AttributeType: "S"
     },
     {
-      AttributeName: "created_at",
-      AttributeType: "N"
+      AttributeName: "email",
+      AttributeType: "S"
     }
   ],
   KeySchema: [
     {
       AttributeName: "id",
       KeyType: "HASH"
-    },
+    }
+  ],
+  GlobalSecondaryIndexes: [
     {
-      AttributeName: "created_at",
-      KeyType: "RANGE"
+      IndexName: "EmailIndex",
+      KeySchema: [
+        {
+          AttributeName: "email",
+          KeyType: "HASH"
+        }
+      ],
+      Projection: {
+        ProjectionType: "ALL"
+      },
+      ProvisionedThroughput: {
+        ReadCapacityUnits: 1,
+        WriteCapacityUnits: 1
+      }
     }
   ]
-//  GlobalSecondaryIndexes: []
 //  LocalSecondaryIndexes: []
 };

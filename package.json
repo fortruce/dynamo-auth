@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "NODE_ENV=${NODE_ENV:-development} node src/index.js | bunyan",
-    "test": "NODE_ENV=${NODE_ENV:-test} node test/index.js | faucet",
+    "test": "NODE_ENV=${NODE_ENV:-test} tape test/**/*.js",
     "lint": "eslint src/ test/ scripts/",
     "lint:test": "npm run lint; npm run test",
-    "test-dev": "watchman-make --make 'npm run' -p '**/*.js' -t lint:test"
+    "test-dev": "watchman-make --make 'npm run --silent' -p '**/*.js' -t lint:test"
   },
   "repository": {
     "type": "git",
@@ -22,11 +22,14 @@
   "homepage": "https://github.com/fortruce/dynamo-auth#readme",
   "dependencies": {
     "aws-dynamodb": "0.1.49",
+    "bcrypt": "0.8.5",
     "bunyan": "1.5.1",
     "dotenv": "^1.2.0",
-    "restify": "^4.0.3"
+    "restify": "^4.0.3",
+    "uuid": "2.0.1"
   },
   "devDependencies": {
+    "async": "1.5.2",
     "eslint": "1.10.3",
     "faucet": "0.0.1",
     "supertest": "1.1.0",

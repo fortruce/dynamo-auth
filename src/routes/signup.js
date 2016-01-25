@@ -16,7 +16,7 @@ function required(accessor, properties) {
 }
 
 function signupHandler(req, res) {
-  res.send(201);
+  res.json(201, { email: req.body.email });
 }
 
 module.exports = server => {
