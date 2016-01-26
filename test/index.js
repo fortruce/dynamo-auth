@@ -12,16 +12,13 @@ test("should connect to local dynamodb", t => {
   });
 });
 
-test("schemas", t => {
-  t.test("Users", t => {
-    db.with([require("../schemas/users")], (err, done) => {
-      t.error(err);
-      db.client.listTables((err, data) => {
-        t.error(err);
-        t.equal(data.TableNames.length, 1);
-        t.equal(data.TableNames[0], "Users");
-        done(t.end);
-      });
-    });
+test("setup db", t => db.setup("users", t.end));
+test("Users", t => {
+  db.client.listTables((err, data) => {
+    t.error(err);
+    t.equal(data.TableNames.length, 1);
+    t.equal(data.TableNames[0], "Users");
+    t.end();
   });
 });
+test("teardown", t => db.teardown(t.end));

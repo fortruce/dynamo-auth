@@ -17,7 +17,20 @@ function required(accessor, properties) {
   };
 }
 
-function signupHandler(req, res, next) {
+function userDoesNotExist(req, res, next) {
+  models.user.get(req.body.email, (err, exists) => {
+    if (err) {
+      logger.error(err);
+      return next(new restify.InternalServerError("Error querying user"));
+    }
+    if (exists) {
+      return next(new restify.BadRequestError("User already exists"));
+    }
+    next();
+  });
+}
+
+function createUser(req, res, next) {
   models.user.create(req.body.email, req.body.password, (err, user) => {
     if (err) {
       logger.error(err);
@@ -33,6 +46,7 @@ function signupHandler(req, res, next) {
 module.exports = server => {
   server.post("/signup", [
     required("body", ["email", "password"]),
-    signupHandler
+    userDoesNotExist,
+    createUser
   ]);
 };

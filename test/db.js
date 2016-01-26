@@ -8,8 +8,15 @@ const async = require("async");
 const db = require("../src/db");
 
 function setup(schemas, cb) {
+  if (Object.getPrototypeOf(schemas) !== Array.prototype) {
+    schemas = [schemas];
+  }
+  schemas = schemas.map(schema => {
+    return typeof schema === "string" ? require(`../schemas/${schema}`) : schema;
+  });
+
   async.parallel(schemas.map(schema => {
-    return cb => db.client.createTable(schema, cb);
+    return cb => db.client.createTable(schema, err => cb(err));
   }), cb);
 }
 
@@ -19,19 +26,12 @@ function teardown(cb) {
       cb(err);
     }
     async.parallel(data.TableNames.map(table => {
-      return cb => db.client.deleteTable({ TableName: table}, cb);
+      return cb => db.client.deleteTable({ TableName: table}, err => cb(err));
     }), cb);
   });
 }
 
-db.with = function(schemas, fn) {
-  function done(cb) {
-    teardown(cb);
-  }
-
-  setup(schemas, err => {
-    fn(err, done);
-  });
-};
+db.setup = setup;
+db.teardown = teardown;
 
 module.exports = db;
