@@ -1,17 +1,7 @@
 const test = require("tape");
 const request = require("supertest")(require("../../src/server"));
 const db = require("../db");
-
-function onlyKeys(t, keys, obj) {
-  keys.every(key => {
-    t.ok(obj.hasOwnProperty(key), `Object missing property ${key}`);
-  });
-  Object.keys(obj).forEach(key => {
-    if (keys.indexOf(key) === -1) {
-      t.fail(`Object has unwanted property ${key}`);
-    }
-  });
-}
+const helpers = require("../helpers");
 
 test("/signup should require email and password", t => {
   t.plan(3);
@@ -91,7 +81,7 @@ test("/signup should create user", t => {
     .expect(201)
     .end((err, res) => {
       t.error(err);
-      onlyKeys(t, ["email", "id"], res.body);
+      helpers.onlyKeys(t, ["email", "id"], res.body);
 
       db.table("Users")
         .index("EmailIndex")
