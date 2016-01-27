@@ -1,6 +1,6 @@
 const test = require("tape");
-const request = require("supertest")(require("../src/server"));
-const db = require("./db");
+const request = require("supertest")(require("../../src/server"));
+const db = require("../db");
 
 function onlyKeys(t, keys, obj) {
   keys.every(key => {
@@ -84,7 +84,7 @@ test("/signup should validate password", t => {
 });
 test("teardown", t => db.teardown(t.end));
 
-test("setup db", t => db.setup([require("../schemas/users")], t.end));
+test("setup db", t => db.setup("users", t.end));
 test("/signup should create user", t => {
   request.post("/signup")
     .send({ email: "user@example.com", password: "different" })

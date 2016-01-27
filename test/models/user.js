@@ -1,7 +1,7 @@
 const test = require("tape");
 const bcrypt = require("bcrypt");
-const db = require("./db");
-const models = require("../src/models");
+const db = require("../db");
+const models = require("../../src/models");
 
 function hasUserFields(t, user) {
   ["id", "email", "hash", "created_at", "updated_at"].forEach(k => {
