@@ -25,6 +25,7 @@
     "bcrypt": "0.8.5",
     "bunyan": "1.5.1",
     "dotenv": "^1.2.0",
+    "email-validator": "1.0.4",
     "restify": "^4.0.3",
     "uuid": "2.0.1"
   },
