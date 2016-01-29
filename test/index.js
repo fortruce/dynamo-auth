@@ -3,6 +3,12 @@
 const test = require("tape");
 const db = require("./db");
 
+test("ensure a clean run", t => {
+  db.setup([], () => {
+    db.teardown(t.end);
+  });
+});
+
 test("should connect to local dynamodb", t => {
   t.equal(db.client.endpoint.hostname, "localhost");
   db.client.listTables((err, tables) => {

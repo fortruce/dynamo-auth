@@ -1,3 +1,5 @@
+"use strict";
+
 if (!process.env.CIRCLECI) {
   const path = require("path");
   require("dotenv").load({ path: path.join(__dirname, "../.env") });
@@ -7,7 +9,13 @@ require("../scripts/dynamo")(["--inMemory", "--sharedDb"]);
 const async = require("async");
 const db = require("../src/db");
 
+let _isSetup = false;
+
 function setup(schemas, cb) {
+  if (_isSetup) {
+    throw new Error("Cannot setup twice.\nAre you missing a previous teardown?");
+  }
+  _isSetup = true;
   if (Object.getPrototypeOf(schemas) !== Array.prototype) {
     schemas = [schemas];
   }
@@ -21,6 +29,10 @@ function setup(schemas, cb) {
 }
 
 function teardown(cb) {
+  if (!_isSetup) {
+    throw new Error("Teardown called without matching setup.\nAre you missing a corresponding setup call?");
+  }
+  _isSetup = false;
   db.client.listTables((err, data) => {
     if (err) {
       cb(err);
