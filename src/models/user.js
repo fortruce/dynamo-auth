@@ -44,7 +44,21 @@ function getUser(email, cb) {
     });
 }
 
+function authenticateUser(email, password, cb) {
+  getUser(email, (err, user) => {
+    if (err) {
+      return cb(err);
+    }
+    if (user) {
+      return bcrypt.compare(password, user.hash, (err, res) => cb(err, res ? user : null));
+    }
+
+    cb(null, null);
+  });
+}
+
 module.exports = {
   create: createUser,
-  get: getUser
+  get: getUser,
+  authenticate: authenticateUser
 };
