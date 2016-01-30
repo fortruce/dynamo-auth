@@ -3,6 +3,7 @@ node_modules/
 .env
 
 *.db
+.tern-port
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
