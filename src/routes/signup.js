@@ -31,7 +31,7 @@ function userDoesNotExist(req, res, next) {
     if (exists) {
       return next(new restify.BadRequestError("User already exists"));
     }
-    next();
+    return next();
   });
 }
 
@@ -45,6 +45,7 @@ function createUser(req, res, next) {
       email: user.email,
       id: user.id
     });
+    return next();
   });
 }
 

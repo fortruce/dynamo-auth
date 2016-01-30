@@ -16,6 +16,7 @@ function loginUser(req, res, next) {
       email: user.email,
       id: user.id
     });
+    return next();
   });
 }
 
